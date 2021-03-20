@@ -1,0 +1,20 @@
+---
+- name: "Create Task Definition file "
+  template: src=config.json dest={{ workspace }}/wikimedia.json
+
+- name: "Update new Task Definition version for media Wiki"
+  shell: /usr/local/bin/aws ecs register-task-definition --cli-input-json file://{{ workspace }}/wikimedia.json --region {{ aws.region }}
+
+- name: "Get the Updated Task definition version for Media Wiki"
+  shell: /usr/local/bin/aws ecs describe-task-definition --task-definition {{ aws.taskdef_name }} --region {{ aws.region }}  | egrep 'revision'| tr ',' ' '| awk '{print $2}'
+  register: task_version
+  ignore_errors: False
+
+- debug:
+    msg: "Task definition version to be used for Media Wiki deployment is {{ task_version.stdout }}"
+
+- name: "Update service for media Wiki"
+  shell: /usr/local/bin/aws ecs update-service --cluster {{aws.ecs_cluster}} --region {{ aws.region }} --service {{ aws.service_name }} --task-definition {{aws.taskdef_name}}:{{task_version.stdout}} --desired-count {{ task_count }} --force-new-deployment
+  register: output
+
+

@@ -1,0 +1,12 @@
+---
+- name: MediaWiki Installation
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - LAMP
+    - media_wiki
+    - DB_setup
+    - selinux_disable
+  vars_files:
+    - open_vars/dev.yml
+    - vault/dev-vault.yml

@@ -1,0 +1,17 @@
+---
+MYSQL_SERVER: localhost
+APP_Name: wikimedia.com
+MYSQL_DB: test_app
+APP_USER: admin
+ENV: dev
+TERMTAG: dev
+image_name: appcontainers/mediawiki
+hostname: mediawiki
+name: mediawiki
+family_name: hazelcast
+networkMode: bridge
+aws:
+  region: us-west-2
+  taskdef_name: hazelcast
+  ecs_cluster: ecs_mediawiki
+  service_name: media_wiki

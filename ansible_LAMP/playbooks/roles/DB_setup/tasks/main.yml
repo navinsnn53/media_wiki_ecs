@@ -1,0 +1,40 @@
+- name: delete anonymous MySQL server user
+  mysql_user: login_user=root
+    login_password='{{ login_password }}'
+    check_implicit_admin=yes
+    user=""
+    host={{ item }}
+    state="absent"
+  with_items:
+    - localhost
+
+- name: Change root user password on first run
+  mysql_user: login_user=root
+    login_password="{{ login_password_root }}"
+    check_implicit_admin=yes
+    name=root
+    password="{{ login_password }}"
+    priv=*.*:ALL,GRANT
+    host={{ item }}
+  with_items:
+    - localhost
+
+- name: remove the MySQL test database
+  action: mysql_db login_user=root login_password="password" db=test state=absent
+
+- name: Create a new database with name 'wikidatabase'
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+    login_user: root
+    login_password: '{{ login_password }}'
+
+- name: Create User and provide all permissions.
+  mysql_user:
+    name: "{{ app_name }}"
+    password: "{{ app_db_password }}"
+    host:  '%'
+    priv: '{{ db_name }}.*:ALL,GRANT'
+    state: present
+    login_user: root
+    login_password: '{{ login_password }}'

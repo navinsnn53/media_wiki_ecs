@@ -1,0 +1,47 @@
+[{
+  "portMappings": [{
+    "hostPort": 80,
+    "protocol": "tcp",
+    "containerPort": 80
+  },
+    {
+      "hostPort": 443,
+      "protocol": "tcp",
+      "containerPort": 443
+    }
+  ],
+  "cpu": 0,
+  "environment": [{
+    "name": "APP_Name",
+    "value": "www.test.com localhost"
+  },
+    {
+      "name": "APP_USER",
+      "value": "admin"
+    },
+    {
+      "name": "ENV",
+      "value": "production"
+    },
+    {
+      "name": "MYSQL_DB",
+      "value": "test_app"
+    },
+    {
+      "name": "MYSQL_PASS",
+      "value": "Password"
+    },
+    {
+      "name": "MYSQL_SERVER",
+      "value": "localhost"
+    },
+    {
+      "name": "TERMTAG",
+      "value": "prod"
+    }
+  ],
+  "memoryReservation": 128,
+  "image": "appcontainers/mediawiki",
+  "hostname": "mediawiki",
+  "name": "mediawiki"
+}]

@@ -1,0 +1,13 @@
+---
+# tasks for ansible-disable-selinux
+- name: Install libselinux as prerequisite for SELinux Ansible module
+  yum:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - libselinux-python
+    - libsemanage-python
+
+- name: Disable SELinux at next reboot
+  selinux:
+    state: disabled

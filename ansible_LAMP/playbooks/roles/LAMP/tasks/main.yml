@@ -1,0 +1,32 @@
+- name: Install LAMP Dependency
+  yum: name={{ item }} state=present
+  with_items:
+    - httpd
+    - mariadb-server
+    - mariadb
+    - php
+    - php-mysql
+    - php-fpm
+    - php-intl
+    - php-gd
+    - php-xml
+    - texlive
+    - epel-release
+    - php-xcache
+    - MySQL-python
+
+- name: restart mariadb
+  systemd: name=mariadb state=restarted
+
+- name: restart httpd
+  systemd: name=httpd state=restarted
+
+- name: Versions check for LAMP
+  template: src=php.j2 dest=/var/www/html/info.php
+  register: version
+  notify:
+    - restart httpd
+
+- debug:
+    msg: "Installation of dependencies complete"
+

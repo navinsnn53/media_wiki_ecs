@@ -1,0 +1,8 @@
+---
+- name: "Deployment for ECS"
+  hosts: localhost
+  roles:
+    - media_wiki
+  vars_files:
+    - "open_vars/dev.yml"
+    - "secret_vars/dev-vault.yml"

@@ -1,0 +1,30 @@
+- name: Download the MediaWiki Binary
+  get_url: 
+     url: 'http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.1.tar.gz'
+     dest: '/tmp/mediawiki-1.24.1.tar.gz'
+     mode: 0644
+
+- name: Download the Signature
+  get_url: 
+     url: 'http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.1.tar.gz.sig'
+     dest: '/tmp/mediawiki-1.24.1.tar.gz.sig'
+     mode: 0644
+
+- name: Extract /tmp/mediawiki-1.24.1.tar.gz  into /var/www/html/
+  unarchive:
+    src: /tmp/mediawiki-1.24.1.tar.gz
+    dest: /var/www/html/
+    creates: /var/www/html/mediawiki
+    remote_src: yes
+
+- name: Change the zipped file folder name
+  shell: mv /var/www/html/mediawiki-1.24.1/  /var/www/html/mediawiki
+
+- name: set permissions for apache
+  command: chown -R apache:apache /var/www/html/mediawiki/
+  notify:
+    - restart httpd
+
+
+
+
