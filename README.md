@@ -25,6 +25,28 @@ This container is build from appcontainers. This docker image helps to run a cus
 * MYSQL_USER: Mysql User which is used to connect to application with grant permissions 
 * APP_USER: Username Application will use toc onnect
 
+## Set up instructions
+- Make git clone of this repo 
+- Go to terraform (note: terraform state file will be locally. If remote backend is required create S3 as pre-requisites)
+  > terraform apply -var-file terraform.tfvars
+- Allow 5 to 10 mins for Elastic Container Service Instance to be ready. 
+- Once instances are ready, go to ansible_ecs_deployment/playbooks folder
+- Run the ansible command given below to trigger the ECS deployment:
+  > ansible-playbook media_wiki.yaml -e workspace="media_wiki/ansible/playbooks/" -e task_count=1 --ask-vault-password
+- Allow the deployment to be completed. 
+
+## Media Wiki Installation Steps
+- Now, open web browser and type the URL https://ip. You will be redirected to the following page:
+- 
+- Now, click on the set up the wiki button. You should see the following page:
+
+
+
+
+
+
+
+
 
 Docker file in guthib:
 
