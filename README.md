@@ -19,11 +19,11 @@ This container is build from appcontainers. This docker image helps to run a cus
 
 ## Container Variables
 
-APP_NAME: To setup fully qualified Domain name
-MYSQL_SERVER: This is the mysql host where the app DB is stored
-MYSQL_CLIENT: Hostname of the computer making connection from Application 
-MYSQL_USER: Mysql User which is used to connect to application with grant permissions 
-APP_USER: Username Application will use toc onnect
+* APP_NAME: To setup fully qualified Domain name
+* MYSQL_SERVER: This is the mysql host where the app DB is stored
+* MYSQL_CLIENT: Hostname of the computer making connection from Application 
+* MYSQL_USER: Mysql User which is used to connect to application with grant permissions 
+* APP_USER: Username Application will use toc onnect
 
 
 Docker file in guthib:
